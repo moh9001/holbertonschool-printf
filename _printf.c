@@ -22,6 +22,10 @@ int handle_specifier(const char *format, va_list args, int *i)
 		case '%':
 			count += _putchar('%');
 			break;
+		case 'd':
+		case 'i':
+			count += print_int(args);
+			break;
 		default:
 			count += _putchar('%');
 			count += _putchar(format[*i]);
