@@ -23,6 +23,7 @@ int print_pointer(va_list args)
 int print_S(va_list args)
 {
 	char *str = va_arg(args, char *);
+	char *digits = "0123456789ABCDEF";
 	int i, count = 0;
 	char hex[5];
 

@@ -8,8 +8,7 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
-	char buffer[1024];
-	int i = 0, count = 0, buf_index = 0;
+	int i = 0, count = 0;
 
 	if (!format)
 		return (-1);
@@ -21,16 +20,22 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
+			if (!format[i])
+			{
+				va_end(args);
+				return (-1);
+			}
+
 			switch (format[i])
 			{
 				case 'c':
-					count += write_buffer(buffer, &buf_index, va_arg(args, int));
+					count += print_char(args);
 					break;
 				case 's':
 					count += print_string(args);
 					break;
 				case '%':
-					count += write_buffer(buffer, &buf_index, '%');
+					count += _putchar('%');
 					break;
 				case 'd':
 				case 'i':
@@ -48,34 +53,25 @@ int _printf(const char *format, ...)
 				case 'X':
 					count += print_hex(args, 1);
 					break;
-				case 'b':
-					count += print_binary(args);
-					break;
 				case 'p':
 					count += print_pointer(args);
 					break;
-				case 'S':
+				case 'S': /* Optional: only if you implemented it correctly */
 					count += print_S(args);
 					break;
-				case 'r':
-					count += print_reverse(args);
-					break;
-				case 'R':
-					count += print_rot13(args);
-					break;
 				default:
-					count += write_buffer(buffer, &buf_index, '%');
-					count += write_buffer(buffer, &buf_index, format[i]);
+					count += _putchar('%');
+					count += _putchar(format[i]);
 					break;
 			}
 		}
 		else
 		{
-			count += write_buffer(buffer, &buf_index, format[i]);
+			count += _putchar(format[i]);
 		}
 		i++;
 	}
-	count += flush_buffer(buffer, buf_index);
+
 	va_end(args);
 	return (count);
 }

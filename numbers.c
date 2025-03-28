@@ -17,7 +17,9 @@ int print_int(va_list args)
 		num = -n;
 	}
 	else
+	{
 		num = n;
+	}
 
 	count += print_number(num, 10, 0);
 	return (count);
@@ -25,6 +27,8 @@ int print_int(va_list args)
 
 /**
  * print_unsigned - Print unsigned int
+ * @args: list
+ * Return: printed characters
  */
 int print_unsigned(va_list args)
 {
@@ -33,6 +37,8 @@ int print_unsigned(va_list args)
 
 /**
  * print_octal - Print octal
+ * @args: list
+ * Return: printed characters
  */
 int print_octal(va_list args)
 {
@@ -40,7 +46,10 @@ int print_octal(va_list args)
 }
 
 /**
- * print_hex - Print hex
+ * print_hex - Print hexadecimal (lowercase or uppercase)
+ * @args: list
+ * @uppercase: 1 for uppercase, 0 for lowercase
+ * Return: printed characters
  */
 int print_hex(va_list args, int uppercase)
 {
@@ -49,6 +58,8 @@ int print_hex(va_list args, int uppercase)
 
 /**
  * print_binary - Print binary
+ * @args: list
+ * Return: printed characters
  */
 int print_binary(va_list args)
 {
@@ -56,7 +67,11 @@ int print_binary(va_list args)
 }
 
 /**
- * print_number - Recursive print in base
+ * print_number - Recursive base printer
+ * @n: number to print
+ * @base: base to use (e.g., 2, 8, 10, 16)
+ * @is_upper: 1 for uppercase hex, 0 otherwise
+ * Return: printed characters
  */
 int print_number(unsigned long int n, int base, int is_upper)
 {

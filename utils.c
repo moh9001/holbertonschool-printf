@@ -26,20 +26,3 @@ int _strlen(const char *s)
 		len++;
 	return (len);
 }
-
-/**
- * print_number - Recursively prints an unsigned int
- * @n: number to print
- * Return: number of characters printed
- */
-int print_number(unsigned int n)
-{
-	int count = 0;
-
-	if (n / 10)
-		count += print_number(n / 10);
-
-	count += _putchar((n % 10) + '0');
-
-	return (count);
-}
