@@ -58,6 +58,9 @@ unsigned int num = va_arg(args, unsigned int);
 return (print_number(num, 16, uppercase));
 }
 
+
+
+
 /**
  * print_binary - Print binary
  * @args: list
@@ -65,8 +68,43 @@ return (print_number(num, 16, uppercase));
  */
 int print_binary(va_list args)
 {
-	return (print_number(va_arg(args, unsigned int), 2, 0));
+unsigned int num = va_arg(args, unsigned int);  /* get the number from the arguments */
+char binary[33];  /* array for storing binary representation */
+int count = 0;  /* variable to count the number of printed characters */
+int i = 31;  /* start from the most significant bit */
+int start = 0;
+    /* If the number is zero, print "0" */
+if (num == 0)
+{
+count += _putchar('0');  /* print the digit '0' */
+return count;  /* return the number of printed characters (1) */
 }
+
+    /* Fill the binary array with the binary representation of the number */
+while (i >= 0) {
+        /* Use bitwise AND to determine whether the bit at position 'i' is 1 or 0 */
+binary[31 - i] = (num & (1 << i)) ? '1' : '0';  /* set '1' or '0' */
+i--;  /* move to the next bit */
+}
+
+binary[32] = '\0';  /* null-terminate the string */
+
+    /* Skip leading zeros in the binary representation */
+while (binary[start] == '0') {
+start++;  /* move to the first non-zero bit */
+}
+
+    /* Print the binary digits starting from the first non-zero bit */
+while (binary[start] != '\0') {
+count += _putchar(binary[start]);  /* print each digit */
+start++;  /* move to the next digit */
+}
+
+return count;  /* return the total number of printed characters */
+}
+
+
+
 
 /**
  * print_number - Recursive base printer
@@ -77,16 +115,25 @@ int print_binary(va_list args)
  */
 int print_number(unsigned long int n, int base, int is_upper)
 {
-	char *digits = is_upper ? "0123456789ABCDEF" : "0123456789abcdef";
-	int count = 0;
+    char *digits = is_upper ? "0123456789ABCDEF" : "0123456789abcdef";
+    int count = 0;
 
+    /* Handle the case when n is 0 */
+    if (n == 0) {
+        count += _putchar('0');
+        return count;
+    }
 
-	if (n / base)
-		count += print_number(n / base, base, is_upper);
+    /* Recursively call print_number for division of the number */
+    if (n / base)
+        count += print_number(n / base, base, is_upper);
 
-	count += _putchar(digits[n % base]);
-	return (count);
+    /* Print the current digit */
+    count += _putchar(digits[n % base]);
+    return count;
 }
+
+
 
 /**
  * print_hex_lower - Prints a number in hexadecimal (lowercase).
