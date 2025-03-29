@@ -17,15 +17,22 @@ int print_int(va_list args);
 int print_unsigned(va_list args);
 int print_octal(va_list args);
 int print_hex(va_list args, int uppercase);
-int print_binary(va_list args);
 int print_pointer(va_list args);
 int print_S(va_list args);
 int print_reverse(va_list args);
 int print_rot13(va_list args);
 int print_number(unsigned long int n, int base, int is_upper);
 
+
+int print_hex_lower(va_list args);
+int print_hex_upper(va_list args);
+
 /* Buffer handling */
 int write_buffer(char *buffer, int *index, char c);
 int flush_buffer(char *buffer, int index);
+
+/* binary */
+int print_binary(va_list args);
+int (*get_func(char format))(va_list);
 
 #endif /* MAIN_H */
